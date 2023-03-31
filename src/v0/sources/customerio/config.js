@@ -1,6 +1,7 @@
 const customerEventNameMap = {
   subscribed: 'Customer Subscribed',
   unsubscribed: 'Customer Unsubscribed',
+  cio_subscription_preferences_changed: 'Customer has changed Subscription Preferences',
 };
 
 const emailEventNameMap = {
@@ -57,6 +58,17 @@ const webhookEventNameMap = {
   drafted: 'Webhook Message Drafted',
 };
 
+const inAppEventNameMap = {
+  failed: 'In-App Message Failed',
+  undeliverable: 'In-App Message Undeliverable',
+  converted: 'In-App Message Converted',
+  clicked: 'In-App Message Link Clicked',
+  opened: 'In-App Message Opened',
+  sent: 'In-App Message Sent',
+  attempted: 'In-App Message Attempted',
+  drafted: 'In-App Message Drafted',
+};
+
 const mappingConfig = {
   customer: customerEventNameMap,
   email: emailEventNameMap,
@@ -64,6 +76,7 @@ const mappingConfig = {
   push: pushEventNameMap,
   slack: slackEventNameMap,
   webhook: webhookEventNameMap,
+  'in-app': inAppEventNameMap,
 };
 
 module.exports = {
