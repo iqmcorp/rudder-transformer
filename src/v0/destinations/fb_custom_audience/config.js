@@ -94,6 +94,8 @@ const subTypeFields = [
 const USER_ADD = 'add';
 const USER_DELETE = 'remove';
 
+const maxPayloadSize = 63000; // bytes
+
 module.exports = {
   getEndPoint,
   schemaFields,
@@ -101,4 +103,5 @@ module.exports = {
   USER_DELETE,
   typeFields,
   subTypeFields,
+  maxPayloadSize,
 };
