@@ -123,17 +123,47 @@ const prepareResponse = (
     disableFormat,
     skipVerify,
   );
-  prepareParams.payload = 
-
-  return prepareParams;
+  const respList = [];
+  payloadBatches.forEach((payloadBatch) => {
+    const response = {
+      ...prepareParams,
+      payload: payloadBatch,
+    };
+    respList.push(response);
+  });
+  return respList;
 };
 
-const processEvent = (message, destination) => {
-  let response;
-  const respList = [];
+/**
+ * Prepare to send events array 
+ * @param {*} message 
+ * @param {*} destination 
+ * @returns 
+ */
+const prepareToSendEvents = (message, destination, audienceChunksArray, userSchema,
+  isHashRequired, operation) => {
   const toSendEvents = [];
-  let wrappedResponse = {};
-
+  audienceChunksArray.forEach((allowedAudienceArray) => {
+    const responseArray = prepareResponse(
+      message,
+      destination,
+      allowedAudienceArray,
+      userSchema,
+      isHashRequired,
+    );
+    responseArray.forEach((response) => {
+      const wrappedResponse = {
+        responseField: response,
+        operationCategory: operation,
+      };
+      toSendEvents.push(wrappedResponse);
+    })
+  });
+  return toSendEvents;
+};
+const processEvent = (message, destination) => {
+  const respList = [];
+  let toSendEvents = [];
   let { userSchema } = destination.Config;
   const { isHashRequired, audienceId, maxUserCount } = destination.Config;
   if (!message.type) {
@@ -176,39 +206,13 @@ const processEvent = (message, destination) => {
   // when "remove" is present in the payload
   if (isDefinedAndNotNullAndNotEmpty(listData[USER_DELETE])) {
     const audienceChunksArray = returnArrayOfSubarrays(listData[USER_DELETE], maxUserCountNumber);
-    audienceChunksArray.forEach((allowedAudienceArray) => {
-      response = prepareResponse(
-        message,
-        destination,
-        allowedAudienceArray,
-        userSchema,
-        isHashRequired,
-      );
-      wrappedResponse = {
-        responseField: response,
-        operationCategory: USER_DELETE,
-      };
-      toSendEvents.push(wrappedResponse);
-    });
+    toSendEvents = prepareToSendEvents(message, destination, audienceChunksArray, userSchema, isHashRequired, USER_DELETE);
   }
 
   // When "add" is present in the payload
   if (isDefinedAndNotNullAndNotEmpty(listData[USER_ADD])) {
     const audienceChunksArray = returnArrayOfSubarrays(listData[USER_ADD], maxUserCountNumber);
-    audienceChunksArray.forEach((allowedAudienceArray) => {
-      response = prepareResponse(
-        message,
-        destination,
-        allowedAudienceArray,
-        userSchema,
-        isHashRequired,
-      );
-      wrappedResponse = {
-        responseField: response,
-        operationCategory: USER_ADD,
-      };
-      toSendEvents.push(wrappedResponse);
-    });
+    toSendEvents.push(...prepareToSendEvents(message, destination, audienceChunksArray, userSchema, isHashRequired, USER_ADD));
   }
   toSendEvents.forEach((sendEvent) => {
     respList.push(responseBuilderSimple(sendEvent, operationAudienceId));

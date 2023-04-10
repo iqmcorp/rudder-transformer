@@ -4,7 +4,7 @@ const jsonSize = require('json-size');
 
 const {
     isDefinedAndNotNull,
-    addExternalIdToTraits
+    returnArrayOfSubarrays
 } = require('../../util');
 const { maxPayloadSize } = require("./config");
 const {
@@ -14,28 +14,32 @@ const {
 
 /**
  * Example payload ={
-   {
-          "access_token": "",
-          "isRaw": true,
-          "datSource":"UNKNOWN"
-          "payload": {
-            "schema": ["EMAIL", "FN"],
+            "is_raw": true,
+            "data_source": {
+              "sub_type": "ANYTHING"
+            },
+            "schema": [
+              "EMAIL",
+              "COUNTRY"
+            ],
             "data": [
+              [
+                "shrouti@abc.com",
+                "IN"
+              ]
             ]
-        }
-        } 
 } */
 const batchingWithPayloadSize = (payload) => {
     const payloadSize = jsonSize(payload);
     if (payloadSize > maxPayloadSize) {
         const revisedPayloadArray = [];
         const noOfBatches = Math.ceil(payloadSize / maxPayloadSize);
-        const revisedRecordsPerPayload = Math.floor(payload.payload.data.length / noOfBatches);
-        const revisedDataArray = addExternalIdToTraits(payload.payload.data, revisedRecordsPerPayload);
-        const scehma = payload.payload.schema;
+        const revisedRecordsPerPayload = Math.floor(payload.data.length / noOfBatches);
+        const revisedDataArray = returnArrayOfSubarrays(payload.data, revisedRecordsPerPayload);
+        const { schema } = payload;
         revisedDataArray.forEach((data) => {
             const revisedPayload = {
-                scehma,
+                schema,
                 data
             };
             revisedPayloadArray.push({ ...payload, payload: revisedPayload });
