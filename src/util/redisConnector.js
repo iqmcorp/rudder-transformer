@@ -16,11 +16,13 @@ const RedisDB = {
       this.host = process.env.REDIS_HOST || 'localhost';
       this.port = parseInt(process.env.REDIS_PORT, 10) || 6379;
       this.password = process.env.REDIS_PASSWORD;
+      this.username = process.env.REDIS_USERNAME;
       this.maxRetries = parseInt(process.env.REDIS_MAX_RETRIES || 30, 10);
       this.timeAfterRetry = parseInt(process.env.REDIS_TIME_AFTER_RETRY_IN_MS || 10, 10);
       this.client = new Redis({
         host: this.host,
         port: this.port,
+        username: this.username,
         password: this.password,
         enableReadyCheck: true,
         retryStrategy: (times) => {

@@ -1,0 +1,1 @@
+{"version":3,"file":"config.js","sourceRoot":"","sources":["../../../../../src/v0/destinations/trengo/config.js"],"names":[],"mappings":";AAAA,MAAM,QAAQ,GAAG,+BAA+B,CAAC;AAEjD,MAAM,SAAS,GAAG;IAChB,YAAY,EAAE,GAAG,QAAQ,UAAU;IACnC,aAAa,EAAE,GAAG,QAAQ,+BAA+B;IACzD,aAAa,EAAE,GAAG,QAAQ,cAAc;CACzC,CAAC;AAEF,MAAM,CAAC,OAAO,GAAG;IACf,SAAS;IACT,QAAQ;CACT,CAAC"}

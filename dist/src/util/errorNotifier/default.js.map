@@ -1,0 +1,1 @@
+{"version":3,"file":"default.js","sourceRoot":"","sources":["../../../../src/util/errorNotifier/default.js"],"names":[],"mappings":";AAAA,MAAM,MAAM,GAAG,OAAO,CAAC,cAAc,CAAC,CAAC;AAEvC,SAAS,IAAI,KAAI,CAAC;AAElB,SAAS,MAAM,CAAC,GAAG,EAAE,OAAO,EAAE,QAAQ;IACpC,MAAM,CAAC,KAAK,CAAC,GAAG,EAAE,OAAO,EAAE,QAAQ,CAAC,CAAC;AACvC,CAAC;AAED,MAAM,CAAC,OAAO,GAAG;IACf,IAAI;IACJ,MAAM;CACP,CAAC"}

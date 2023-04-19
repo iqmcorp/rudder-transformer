@@ -1,0 +1,1 @@
+{"version":3,"file":"transform.js","sourceRoot":"","sources":["../../../../../src/v0/destinations/kinesis/transform.js"],"names":[],"mappings":";AAAA,SAAS,OAAO,CAAC,KAAK;IACpB,MAAM,MAAM,GAAG;QACb,OAAO,EAAE,KAAK,CAAC,OAAO;QACtB,MAAM,EAAE,KAAK,CAAC,OAAO,CAAC,MAAM,IAAI,KAAK,CAAC,OAAO,CAAC,WAAW;KAC1D,CAAC;IACF,OAAO,MAAM,CAAC;AAChB,CAAC;AAED,OAAO,CAAC,OAAO,GAAG,OAAO,CAAC"}

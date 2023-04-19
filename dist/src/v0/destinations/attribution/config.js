@@ -1,0 +1,6 @@
+"use strict";
+const batchEndpoint = 'https://track.attributionapp.com/v1/import';
+module.exports = {
+    batchEndpoint,
+};
+//# sourceMappingURL=config.js.map
