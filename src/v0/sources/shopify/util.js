@@ -140,7 +140,6 @@ const setAnonymousIdorUserIdFromDb = async (message, metricMetadata) => {
     case SHOPIFY_TRACK_MAP.orders_partially_fullfilled:
     case RUDDER_ECOM_MAP.orders_create:
     case RUDDER_ECOM_MAP.orders_updated:
-
       if (!isDefinedAndNotNull(message.properties?.cart_token)) {
         /**
          * This case will rise when we will be using Shopify Admin Dashboard to create, update, delete orders etc.
